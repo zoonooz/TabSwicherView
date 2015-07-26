@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC1D65DF1B64A1440097B3A1 /* TabSwitcherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1D65DE1B64A1440097B3A1 /* TabSwitcherProtocol.swift */; };
 		DC7D24351B6406BB006B10AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7D24341B6406BB006B10AA /* AppDelegate.swift */; };
 		DC7D24371B6406BB006B10AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7D24361B6406BB006B10AA /* ViewController.swift */; };
 		DC7D243A1B6406BB006B10AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC7D24381B6406BB006B10AA /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DC1D65DE1B64A1440097B3A1 /* TabSwitcherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabSwitcherProtocol.swift; sourceTree = "<group>"; };
 		DC7D242F1B6406BB006B10AA /* TabSwitcherViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TabSwitcherViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC7D24331B6406BB006B10AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC7D24341B6406BB006B10AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				DC7D24571B64086E006B10AA /* TabSwitcherLayoutAttributes.swift */,
 				DC7D24591B640B21006B10AA /* TabViewCell.swift */,
 				DC7D245B1B640C17006B10AA /* TabSwitcherView.swift */,
+				DC1D65DE1B64A1440097B3A1 /* TabSwitcherProtocol.swift */,
 			);
 			path = TabSwitcherView;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				DC7D24561B6407C9006B10AA /* TabSwitcherLayout.swift in Sources */,
 				DC7D245C1B640C17006B10AA /* TabSwitcherView.swift in Sources */,
 				DC7D24581B64086E006B10AA /* TabSwitcherLayoutAttributes.swift in Sources */,
+				DC1D65DF1B64A1440097B3A1 /* TabSwitcherProtocol.swift in Sources */,
 				DC7D245A1B640B21006B10AA /* TabViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

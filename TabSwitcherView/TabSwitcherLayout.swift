@@ -10,6 +10,10 @@ import UIKit
 
 class TabSwitcherLayout: UICollectionViewFlowLayout {
     
+    var focusingIndex: Int = -1
+    
+    private var latestTransform3D: CATransform3D?
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -18,12 +22,11 @@ class TabSwitcherLayout: UICollectionViewFlowLayout {
         super.init()
         minimumLineSpacing = 0
         minimumInteritemSpacing = 0
-        sectionInset = UIEdgeInsetsMake(40, 0, 300, 0)
-        itemSize =  CGSizeMake(UIScreen.mainScreen().bounds.size.width, 120)
+        sectionInset = UIEdgeInsetsMake(0, 0, 300, 0)
     }
     
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
-        return true
+        return focusingIndex < 0
     }
     
     override class func layoutAttributesClass() -> AnyClass {
@@ -53,8 +56,67 @@ class TabSwitcherLayout: UICollectionViewFlowLayout {
             
             t = CATransform3DRotate(t, -CGFloat(M_PI / Double(8 - angleConstant)), 1, 0, 0)
             t = CATransform3DScale(t, 0.95, 0.95, 1)
+            attr.transform = CGAffineTransformIdentity
             attr.displayTransform = t
+            
             return attr
         })
     }
+    
+    // MARK: - Focusing
+    
+    func setFocusingIndex(index: Int, animated: Bool = true) {
+        if index == focusingIndex {
+            return
+        }
+        
+        if index < 0 {
+            collectionView!.scrollEnabled = true
+            let prevIndex = self.focusingIndex
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                let visibleCells = self.collectionView!.visibleCells() as! [TabViewCell]
+                for cell in visibleCells {
+                    let cellIndex = self.collectionView!.indexPathForCell(cell)!.item
+                    let offset = self.collectionView!.contentOffset.y
+                    if cellIndex < prevIndex {
+                        cell.transform = CGAffineTransformIdentity
+                    } else if cellIndex > prevIndex {
+                        cell.transform = CGAffineTransformIdentity
+                    } else {
+                        cell.transform = CGAffineTransformIdentity
+                        cell.displayView.layer.transform = self.latestTransform3D!
+                    }
+                }
+                
+            }, completion: { (finished) -> Void in
+                self.focusingIndex = -1
+            })
+            return
+        }
+        
+        collectionView!.scrollEnabled = false
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            let visibleCells = self.collectionView!.visibleCells() as! [TabViewCell]
+            for cell in visibleCells {
+                let cellIndex = self.collectionView!.indexPathForCell(cell)!.item
+                let offset = self.collectionView!.contentOffset.y
+                if cellIndex < index {
+                    let newY = self.collectionView!.bounds.size.height
+                    cell.transform = CGAffineTransformMakeTranslation(0, -newY)
+                } else if cellIndex > index {
+                    let newY = self.collectionView!.bounds.size.height
+                    cell.transform = CGAffineTransformMakeTranslation(0, newY)
+                } else {
+                    let newY = offset - cell.frame.origin.y
+                    cell.transform = CGAffineTransformMakeTranslation(0, newY)
+                    
+                    self.latestTransform3D = cell.displayView.layer.transform
+                    cell.displayView.layer.transform = CATransform3DIdentity
+                }
+            }
+        }, completion: { (finished) -> Void in
+            self.focusingIndex = index
+        })
+    }
+    
 }

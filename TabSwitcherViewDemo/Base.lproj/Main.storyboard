@@ -20,15 +20,34 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HFF-aw-an8">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Njd-9U-PbP"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Mode" id="qYv-ay-j5o">
+                                        <connections>
+                                            <action selector="modeButtonClick:" destination="vXZ-lx-hvc" id="ATI-cI-eWt"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="HFF-aw-an8" secondAttribute="bottom" id="BdY-gK-Fjk"/>
                             <constraint firstItem="GY3-hZ-Ber" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="Csz-1B-wgA"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="GY3-hZ-Ber" secondAttribute="bottom" id="Edp-ZV-xhN"/>
+                            <constraint firstAttribute="trailing" secondItem="HFF-aw-an8" secondAttribute="trailing" id="UUa-hf-d9Z"/>
                             <constraint firstItem="GY3-hZ-Ber" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="aGB-b2-cNa"/>
+                            <constraint firstItem="HFF-aw-an8" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="ySz-iT-N65"/>
                             <constraint firstAttribute="trailing" secondItem="GY3-hZ-Ber" secondAttribute="trailing" id="zPQ-Jn-xq1"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tabSwitcherView" destination="GY3-hZ-Ber" id="pK7-Xp-8xW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
