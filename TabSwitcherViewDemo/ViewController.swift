@@ -25,7 +25,7 @@ class ViewController: UIViewController, TabSwitcherDataSource {
     }
 
     @IBAction func modeButtonClick(sender: AnyObject) {
-        tabSwitcherView.setSwithingModeEnable(!tabSwitcherView.switching)
+        tabSwitcherView.switching = true
     }
     
     // MARK: TabSwitcher DataSource

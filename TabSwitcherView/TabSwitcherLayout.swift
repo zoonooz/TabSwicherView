@@ -22,7 +22,7 @@ class TabSwitcherLayout: UICollectionViewFlowLayout {
         super.init()
         minimumLineSpacing = 0
         minimumInteritemSpacing = 0
-        sectionInset = UIEdgeInsetsMake(0, 0, 300, 0)
+        sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
     }
     
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
@@ -85,6 +85,7 @@ class TabSwitcherLayout: UICollectionViewFlowLayout {
                     } else {
                         cell.transform = CGAffineTransformIdentity
                         cell.displayView.layer.transform = self.latestTransform3D!
+                        cell.gradientView.alpha = 1
                     }
                 }
                 
@@ -112,6 +113,8 @@ class TabSwitcherLayout: UICollectionViewFlowLayout {
                     
                     self.latestTransform3D = cell.displayView.layer.transform
                     cell.displayView.layer.transform = CATransform3DIdentity
+                    
+                    cell.gradientView.alpha = 0
                 }
             }
         }, completion: { (finished) -> Void in

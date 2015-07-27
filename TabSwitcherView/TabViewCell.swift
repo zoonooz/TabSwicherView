@@ -11,6 +11,7 @@ import UIKit
 class TabViewCell: UICollectionViewCell {
 
     let displayView: UIView
+    let gradientView: UIView
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -20,6 +21,7 @@ class TabViewCell: UICollectionViewCell {
         displayView = UIView(frame: CGRectMake(0, 0,
             UIScreen.mainScreen().bounds.size.width,
             UIScreen.mainScreen().bounds.size.height))
+        gradientView = UIView(frame: displayView.bounds)
         
         super.init(frame: frame)
         
@@ -33,14 +35,18 @@ class TabViewCell: UICollectionViewCell {
         contentView.addSubview(displayView)
         setAnchorPoint(CGPointMake(0.5, 0), forView: displayView)
         
-        let imageView = UIImageView(frame: displayView.bounds)
-        imageView.image = UIImage(named: "test")
-        displayView.addSubview(imageView)
+        // test button
+        let button = UIButton(frame: CGRectMake(200, 50, 100, 50))
+        button.setTitle("test", forState: .Normal)
+        button.addTarget(self, action: "test", forControlEvents: UIControlEvents.TouchUpInside)
+        displayView.addSubview(button)
         
+        // setup gradient
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = displayView.bounds
         gradientLayer.colors = [UIColor.clearColor().CGColor, UIColor.blackColor().CGColor]
-        displayView.layer.addSublayer(gradientLayer)
+        gradientView.layer.addSublayer(gradientLayer)
+        displayView.addSubview(gradientView)
         
         // add motion effect
         let verticalMotionEffect = UIInterpolatingMotionEffect(keyPath: "layer.transform",
@@ -56,6 +62,11 @@ class TabViewCell: UICollectionViewCell {
         verticalMotionEffect.maximumRelativeValue = NSValue(CATransform3D: tranformMaxRelative)
         
         displayView.addMotionEffect(verticalMotionEffect)
+        
+    }
+    
+    func test() {
+        print("test")
     }
     
     override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
