@@ -38,7 +38,6 @@ class TabSwitcherView: UIView {
     }
     
     private func setup() {
-        backgroundColor = UIColor.clearColor()
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.registerClass(TabViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = UIColor.clearColor()

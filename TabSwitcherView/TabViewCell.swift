@@ -27,7 +27,7 @@ class TabViewCell: UICollectionViewCell {
         
         contentView.backgroundColor = UIColor.clearColor()
         
-        displayView.backgroundColor = UIColor.orangeColor()
+        displayView.backgroundColor = UIColor.whiteColor()
         layer.rasterizationScale = UIScreen.mainScreen().scale
         layer.shouldRasterize = true
         displayView.layer.frame = displayView.bounds

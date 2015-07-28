@@ -18,7 +18,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GY3-hZ-Ber" customClass="TabSwitcherView" customModule="TabSwitcherViewDemo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HFF-aw-an8">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
@@ -34,7 +34,7 @@
                                 </items>
                             </toolbar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="HFF-aw-an8" secondAttribute="bottom" id="BdY-gK-Fjk"/>
                             <constraint firstItem="GY3-hZ-Ber" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="Csz-1B-wgA"/>
