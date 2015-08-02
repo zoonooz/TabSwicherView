@@ -27,6 +27,8 @@ class TabSwitcherView: UIView {
     private let layout = TabSwitcherLayout()
     weak var dataSource: TabSwitcherDataSource?
     
+    private var adding = false
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -62,13 +64,18 @@ class TabSwitcherView: UIView {
         
         switchingEnable = enable
         let index = enable ? -1 : focusingIndex
-        layout.setFocusingIndex(index)
+        layout.switchToIndex(index)
     }
 
     func addTab() {
-        if switching {
-            
+        adding = true
+        
+        if !switching {
+            switching = true
+        } else {
+            didSwitchingToIndex(-1)
         }
+        
     }
     
     // MARK:
@@ -95,7 +102,7 @@ extension TabSwitcherView: UICollectionViewDataSource {
             switchingEnable = true
         }
         focusingIndex = -1
-        layout.focusingIndex = focusingIndex
+        layout.switchToIndex(focusingIndex)
         return count
     }
     
@@ -110,13 +117,43 @@ extension TabSwitcherView: UICollectionViewDataSource {
     
 }
 
-extension TabSwitcherView: UICollectionViewDelegateFlowLayout {
+extension TabSwitcherView: TabSwitcherLayoutDelegate {
+    
+    func didSwitchingToIndex(index: Int) {
+        if adding && index < 0 {
+            let offset = max(collectionView.contentSize.height - collectionView.bounds.size.height, 0)
+            
+            if offset > 0 {
+                collectionView.setContentOffset(
+                    CGPointMake(0, offset),
+                    animated: true)
+            } else {
+                scrollViewDidEndScrollingAnimation(collectionView)
+            }
+        }
+    }
+    
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        if adding {
+            adding = false
+            
+            if let count = self.dataSource?.numberOfTabs() where count > 0 {
+                collectionView.performBatchUpdates({ () -> Void in
+                    self.collectionView.insertItemsAtIndexPaths([NSIndexPath(forItem: count - 1, inSection: 0)])
+                }, completion: { (finished) in
+                    self.layout.switchToIndex(count - 1)
+                    self.switchingEnable = false
+                    self.focusingIndex = count - 1
+                })
+            }
+        }
+    }
     
     func collectionView(collectionView: UICollectionView,
         didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
         if switching {
-            layout.setFocusingIndex(indexPath.item)
+            layout.switchToIndex(indexPath.item)
             switchingEnable = false
             focusingIndex = indexPath.item
         }

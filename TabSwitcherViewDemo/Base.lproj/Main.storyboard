@@ -28,7 +28,13 @@
                                 <items>
                                     <barButtonItem title="Add" id="qYv-ay-j5o">
                                         <connections>
-                                            <action selector="modeButtonClick:" destination="vXZ-lx-hvc" id="ATI-cI-eWt"/>
+                                            <action selector="addButtonClick:" destination="vXZ-lx-hvc" id="mYG-e1-Xh3"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="PLo-hV-xMA"/>
+                                    <barButtonItem title="Switch" id="iR2-mh-AaN">
+                                        <connections>
+                                            <action selector="modeButtonClick:" destination="vXZ-lx-hvc" id="dqS-N5-wvf"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>

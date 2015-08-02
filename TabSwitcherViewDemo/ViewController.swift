@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController, TabSwitcherDataSource {
     
     @IBOutlet weak var tabSwitcherView: TabSwitcherView!
+    
+    private var size = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +30,15 @@ class ViewController: UIViewController, TabSwitcherDataSource {
         tabSwitcherView.switching = true
     }
     
+    @IBAction func addButtonClick(sender: AnyObject) {
+        size++
+        tabSwitcherView.addTab()
+    }
+    
     // MARK: TabSwitcher DataSource
     
     func numberOfTabs() -> Int {
-        return 10
+        return size
     }
     
     func viewForTabAtIndex(index: Int) -> UIView {

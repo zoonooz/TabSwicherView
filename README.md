@@ -8,7 +8,7 @@ iOS custom view that mimic same animation when switch tabs in iPhone Safari
 ### Todo
 - [x] switching animation
 - [x] parallax effects
-- [ ] add new tab
+- [x] add new tab
 - [ ] remove tab
 - [ ] use data from datasource
 - [ ] send events to delegate
