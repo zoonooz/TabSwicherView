@@ -13,6 +13,8 @@ class TabViewCell: UICollectionViewCell {
     let displayView: UIView
     let gradientView: UIView
     
+    private var currentTransform: CATransform3D?
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -63,10 +65,33 @@ class TabViewCell: UICollectionViewCell {
         
         displayView.addMotionEffect(verticalMotionEffect)
         
+        // add pan gesture
+        let gesture = UIPanGestureRecognizer(target: self, action: "handlePan:")
+        gesture.delegate = self
+        displayView.addGestureRecognizer(gesture)
     }
     
     func test() {
         print("test")
+    }
+    
+    func handlePan(recognizer: UIPanGestureRecognizer) {
+        
+        switch recognizer.state {
+        case .Changed:
+            let translation = recognizer.translationInView(displayView)
+            let transform = displayView.layer.transform
+            displayView.layer.transform = CATransform3DTranslate(transform, translation.x, 0, 0)
+            recognizer.setTranslation(CGPointZero, inView: displayView)
+            
+        case .Cancelled, .Ended:
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                if let transform = self.currentTransform {
+                    self.displayView.layer.transform = transform
+                }
+            })
+        default: break
+        }
     }
     
     override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
@@ -74,6 +99,7 @@ class TabViewCell: UICollectionViewCell {
         
         if let attr = layoutAttributes as? TabSwitcherLayoutAttributes {
             displayView.layer.transform = attr.displayTransform
+            currentTransform = attr.displayTransform
         }
     }
     
@@ -95,6 +121,19 @@ class TabViewCell: UICollectionViewCell {
         
         view.layer.position = position
         view.layer.anchorPoint = anchorPoint
+    }
+    
+}
+
+extension TabViewCell: UIGestureRecognizerDelegate {
+    
+    // fix hard to scroll vertically
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let pan = gestureRecognizer as? UIPanGestureRecognizer {
+            let velocity = pan.velocityInView(displayView)
+            return fabs(velocity.x) > fabs(velocity.y);
+        }
+        return true
     }
     
 }
