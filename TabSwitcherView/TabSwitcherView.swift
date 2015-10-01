@@ -29,7 +29,7 @@ class TabSwitcherView: UIView {
     
     private var adding = false
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }

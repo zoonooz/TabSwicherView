@@ -121,6 +121,7 @@
 		DC7D24271B6406BB006B10AA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = zoonref;
 				TargetAttributes = {

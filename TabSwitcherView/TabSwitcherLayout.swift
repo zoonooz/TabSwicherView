@@ -34,21 +34,20 @@ class TabSwitcherLayout: UICollectionViewFlowLayout {
         return TabSwitcherLayoutAttributes.self
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let attrs = super.layoutAttributesForElementsInRect(rect)
         return attrs?.map({
-            return self.applyAttributes($0 as! UICollectionViewLayoutAttributes)
+            return self.applyAttributes($0)
         })
     }
     
     // MARK: - Updating
     
-    override func prepareForCollectionViewUpdates(updateItems: [AnyObject]!) {
+    override func prepareForCollectionViewUpdates(updateItems: [UICollectionViewUpdateItem]) {
         super.prepareForCollectionViewUpdates(updateItems)
-        let items = updateItems as! [UICollectionViewUpdateItem]
-        for item in items {
+        for item in updateItems {
             if item.updateAction == .Insert {
-                insertIndexPaths.append(item.indexPathAfterUpdate!)
+                insertIndexPaths.append(item.indexPathAfterUpdate)
             }
         }
     }
@@ -56,8 +55,8 @@ class TabSwitcherLayout: UICollectionViewFlowLayout {
     override func initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath: NSIndexPath) -> UICollectionViewLayoutAttributes?
     {
         var attr = super.initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath)!
-        if contains(insertIndexPaths, itemIndexPath) {
-            attr = applyAttributes(super.layoutAttributesForItemAtIndexPath(itemIndexPath))
+        if insertIndexPaths.contains(itemIndexPath) {
+            attr = applyAttributes(super.layoutAttributesForItemAtIndexPath(itemIndexPath)!)
             attr.transform3D = CATransform3DTranslate(attr.transform3D, 0, attr.bounds.size.height, 0)
         }
         return attr
@@ -133,7 +132,7 @@ class TabSwitcherLayout: UICollectionViewFlowLayout {
     // MARK: - Utils
     
     private func applyAttributes(attribute: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        if let attr = attribute as? TabSwitcherLayoutAttributes {
+        if let attr = attribute.copy() as? TabSwitcherLayoutAttributes {
             attr.zIndex = attr.indexPath.item
             
             let distance = attr.frame.origin.y - self.collectionView!.contentOffset.y
